@@ -1,6 +1,6 @@
 <?php
 ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 1); 
+ini_set('session.cookie_secure', 1); // Assurez-vous que votre site utilise HTTPS
 ini_set('session.use_strict_mode', 1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.cookie_samesite', 'Strict');
@@ -44,7 +44,9 @@ if(isset($_POST["submit"])) {
     }
 
     if(array_filter($errors)) {
+        // Il y a des erreurs dans le formulaire
     } else {
+        // Pas d'erreurs, procéder à l'insertion dans la base de données
         $sql = "INSERT INTO stories(username, title, content) VALUES(?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $username, $title, $content);
@@ -69,16 +71,13 @@ if(isset($_POST["submit"])) {
         <label for="">Story title:</label>
         <input type="text" name="title" value="<?php echo htmlspecialchars($title); ?>">
         <div class="red-text"><?php echo $errors['emptyT']; ?></div>
-        <label for="">Content (you can style your content ;)):</label>
-        <input type="text" name="content" value="<?php echo htmlspecialchars($content); ?>">
+        <label for="">Content:</label>
+        <textarea name="content"><?php echo htmlspecialchars($content); ?></textarea>
         <div class="red-text"><?php echo $errors['emptyI']; ?></div>
         <div class="center">
-            <input type="submit" value="submit" name="submit" class="btn waves-effect waves-light">
+            <input type="submit" name="submit" value="Submit" class="btn brand z-depth-0">
         </div>
     </form>
-    <div class="center" style="margin-top: 20px;">
-        <a href="idea.php" class="btn waves-effect waves-light">Get idea from external website</a>
-    </div>
 </section>
 <?php include('templates/footer.php'); ?>
 </html>
