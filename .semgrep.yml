@@ -1,0 +1,42 @@
+rules:
+  - id: sql-injection
+    patterns:
+      - pattern: mysqli_query($conn, $QUERY)
+    message: "Vulnérabilité potentielle d'injection SQL."
+    languages: [php]
+    severity: ERROR
+
+  - id: xss-vulnerability
+    patterns:
+      - pattern: echo $DATA
+    message: "Vulnérabilité potentielle de XSS."
+    languages: [php]
+    severity: ERROR
+
+  - id: ssrf-vulnerability
+    patterns:
+      - pattern: file_get_contents($URL)
+    message: "Vulnérabilité potentielle de SSRF."
+    languages: [php]
+    severity: ERROR
+
+  - id: rce-vulnerability
+    patterns:
+      - pattern: eval($CODE)
+    message: "Vulnérabilité potentielle d'exécution de code à distance (RCE)."
+    languages: [php]
+    severity: ERROR
+
+  - id: session-management
+    patterns:
+      - pattern: session_start()
+    message: "Vérifiez la gestion des sessions pour les vulnérabilités potentielles."
+    languages: [php]
+    severity: WARNING
+
+  - id: xxe-vulnerability
+    patterns:
+      - pattern: $DOC->loadXML($XML, LIBXML_NOENT | LIBXML_DTDLOAD)
+    message: "Vulnérabilité potentielle d'attaque XXE."
+    languages: [php]
+    severity: ERROR
